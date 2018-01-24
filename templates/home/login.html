@@ -1,0 +1,50 @@
+{% extends 'simple.html' %}
+{% block titulo %} Inicio de sesión {% endblock %}
+
+{% block content %} {% if user.is_authenticated %}
+<div id="fh5co-portfolio">
+  <div class="fh5co-portfolio-item ">
+    <div class="fh5co-portfolio-description">
+      <h2>Logueado con exito</h2>
+      <p>Estas actualmente logueado</p>
+    </div>
+  </div>
+</div>
+{% else %}
+{% if form.errors %}
+<p>Error al iniciar sesion</p>
+{% endif %}
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="user">Name:</label>
+    <input type="text" class="form-control" id="user" name="username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" id="password" name="password">
+  </div>
+  <center>
+    <input class="btn btn-success btn-bg" type="submit" value="Login" />
+  </center>
+  </p>
+</form>
+{% endif %}
+{% endblock %}
+
+{% block content_footer %}
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}
+
+{% block encabezado%}
+<h2><a href="#">Logueate</a></h2>
+<p>O crea una cuenta</p>
+{% endblock %}
+
+{% block datos%}
+{% endblock %}
+
+{% block imagen_principal %}
+{% endblock %}

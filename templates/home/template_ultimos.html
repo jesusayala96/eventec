@@ -1,0 +1,43 @@
+{% if ultimos_eventos %}
+{% for evento in ultimos_eventos %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="/evento/{{evento.pk}}/">{{evento.Titulo}}</a></h2>
+      <p>{{evento.DescripcionC}}</p>
+    </div>
+    <div class="meta">
+      <time class="published" datetime="2015-11-01">{{evento.Fecha}} - {{evento.Hora}}</time>
+      <a href="#" class="author"><span class="name">{{evento.Autor}}</span></a>
+    </div>
+  </header>
+  <p>{{evento.DescripcionL}}</p>  
+  <footer>
+    <ul class="actions">
+      <li><a href="/evento/{{evento.pk}}/" class="button big">Continue Reading</a></li>
+    </ul>
+    <ul class="stats">
+      {% for cat in evento.Categorias.all %}
+      <li><a href="/eventos/categoria/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+      
+      {% for cat in evento.Tipos.all %}
+      <li><a href="/eventos/tipo/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+      
+      <li><a href="#" class="icon fa-heart">{{evento.Likes.count}}</a></li>
+      <li><a href="#" class="icon fa-comment">{{evento.Comentarios.count}}</a></li>
+    </ul>
+  </footer>
+</article>
+{% endfor %}
+{% else %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="#">No hay eventos que coincidan con esos criterios</a></h2>
+    </div>
+  </header>
+  <p>Vuelve a intentarlo con otros criterios</p>
+</article>
+{% endif %}

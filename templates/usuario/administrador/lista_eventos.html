@@ -1,0 +1,122 @@
+{% extends 'listas_sidebar.html' %} 
+{% block sideintro %}
+<header>
+  <h2>Eventec</h2>
+  <p>Gestion Eventos dentro del ITT</p>
+  <p>Control de Asistencia</p>
+</header>
+{% endblock %} 
+
+{% block post %}
+{% if eventos %}
+{% for evento in eventos %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="/evento/{{evento.pk}}/">{{evento.Titulo}}</a></h2>
+      <p>{{evento.DescripcionC}}</p>
+    </div>
+    <div class="meta">
+      <time class="published" datetime="2015-11-01">{{evento.Fecha}} - {{evento.Hora}}</time>
+      <a href="" class="author"><span class="name">{{evento.Autor}}</span><img src="images/avatar.jpg" alt="" /></a>
+    </div>
+  </header>
+  <a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+  <p>{{evento.DescripcionL}}</p>
+  <footer>
+    <ul class="actions">
+      <li><a href="/evento/{{evento.pk}}/" class="button mid">Continue Reading</a></li>
+      <li><a href="/user/admin/staff/asignar/{{evento.pk}}" class="button mid">Asignar Staff</a></li>
+      {% if evento.Publicado %}
+      <li><a href="/user/admin/despublicar/evento/{{evento.pk}}" class="button mid">Des Publicar</a></li>
+      {% else %}
+      <li><a href="/user/admin/publicar/evento/{{evento.pk}}" class="button mid">Publicar</a></li>
+      {% endif %}
+    </ul>
+    <ul class="stats">
+      {% for cat in evento.Categorias.all %}
+      <li><a href="/eventos/categoria/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+      
+      {% for cat in evento.Tipos.all %}
+      <li><a href="/eventos/tipo/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+      
+      <li><a href="#" class="icon fa-heart">{{evento.Likes.count}}</a></li>
+      <li><a href="#" class="icon fa-comment">{{evento.Comentarios.count}}</a></li>
+    </ul>
+  </footer>
+</article>
+{% endfor %}
+{% else %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="#">No hay eventos que coincidan con esos criterios</a></h2>
+    </div>
+  </header>
+  <p>Vuelve a intentarlo con otros criterios</p>
+</article>
+{% endif %}
+{% endblock %} 
+
+{% block pagination %}
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li tweets="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}
+
+{% block sidepost %}
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/">Eventos Por Publicar</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/publicados/">Eventos Publicados</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/usuarios/">Ver Usuarios</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/staff/">Ver Staff</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/usuarios/crear">Crear Usuarios</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/staff/crear">Crear Staff</a></h3>
+  </header>
+</article>
+{% endblock %} 
+{% block sideminipost %}
+{% endblock %} 
+
+{% block footer %} {% endblock %} {% block extrajs %} {% endblock %}

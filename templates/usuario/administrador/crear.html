@@ -1,0 +1,78 @@
+{% extends 'simple_sidebar.html' %}
+
+{% block titulo %}
+
+{% endblock %}
+
+{% block sideintro %}
+<header>
+  <h2>Eventec</h2>
+  <p>Gestion Eventos dentro del ITT</p>
+  <p>Control de Asistencia</p>
+</header>
+{% endblock %}
+
+{% block sidepost %}
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/">Eventos Por Publicar</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/publicados/">Eventos Publicados</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/usuarios/">Ver Usuarios</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/staff/">Ver Staff</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/usuarios/crear">Crear Usuarios</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/admin/staff/crear">Crear Staff</a></h3>
+  </header>
+</article>
+{% endblock %}
+
+{% block encabezado %}
+<h2><a href="">Crea</a></h2>
+{% endblock %}
+
+{% block content %}
+ <form method = "POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<input type ="submit" value = "Actualizar">
+		</form>
+{% endblock %}
+{% block datos%}
+{% endblock %}
+
+{% block imagen_principal %}
+{% endblock %}
+
+{% block content_footer %}
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}
+
+{% block sideminipost %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block extrajs %}
+{% endblock %}

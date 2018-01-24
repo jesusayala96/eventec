@@ -1,0 +1,40 @@
+{% extends 'simple.html' %}
+{% block titulo %} Registrarse {% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div id="fh5co-portfolio">
+  <div class="fh5co-portfolio-item ">
+    <div class="fh5co-portfolio-description">
+      <h2>Logueado con exito</h2>
+      <p>Estas actualmente logueado</p>
+    </div>
+  </div>
+</div>
+{% else %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <center>
+    <input class="btn btn-success btn-bg" type="submit" value="Registrarse" />
+  </center>
+  </form>
+{% endif %}
+{% endblock %}
+
+{% block content_footer %}
+{% endblock %} 
+
+{% block pagination %}
+{% endblock %}
+
+{% block encabezado%}
+<h2><a href="#">Registro</a></h2>
+<p>Registrate para poder publciar tus eventos</p>
+{% endblock %} 
+
+{% block datos%}
+{% endblock %} 
+
+{% block imagen_principal %}
+{% endblock %} 

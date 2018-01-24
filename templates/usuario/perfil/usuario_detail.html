@@ -1,0 +1,40 @@
+{% extends 'usuario/perfil/base.html' %}
+
+{% block titulo %}
+Eventec
+{% endblock %}
+
+{% block sidepost %}
+<article class="mini-post">
+  <header>
+    <h3><a href="edit/{{usuario.pk}}">Editar Perfil</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="miseventos/">Mis eventos</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="guardados/">Eventos Guardados</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="gustados/">Eventos Gustados</a></h3>
+  </header>
+</article>
+{% endblock %}
+
+
+{% block content %}
+<p>{{ usuario.Nombre }} {{ usuario.ApellidoPaterno }} {{ usuario.ApellidoMaterno }}</p>
+		<p>{{ usuario.Correo }}</p>
+		<p>{{ usuario.Telefono }}</p>
+		<p>{{ usuario.Direccion }}</p>
+		{% if usuario.NumControl %}
+		<p>{{ usuario.NumControl }}</p>
+		{% endif %}
+{% endblock %}
+

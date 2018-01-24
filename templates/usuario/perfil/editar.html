@@ -1,0 +1,37 @@
+{% extends 'usuario/perfil/base.html' %}
+
+{% block titulo %}
+Eventec
+{% endblock %}
+{% block sidepost %}
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/profile/edit/{{usuario.pk}}">Editar Perfil</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/profile/miseventos/">Mis eventos</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/profile/guardados/">Eventos Guardados</a></h3>
+  </header>
+</article>
+<article class="mini-post">
+  <header>
+    <h3><a href="/user/profile/gustados/">Eventos Gustados</a></h3>
+  </header>
+</article>
+{% endblock %}
+
+
+{% block content %}
+ <form method = "POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<input type ="submit" value = "Actualizar">
+		</form>
+{% endblock %}
+

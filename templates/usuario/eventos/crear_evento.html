@@ -1,0 +1,37 @@
+{% extends 'simple.html' %}
+{% block titulo %} Registrarse {% endblock %}
+{% block content %} 
+<form method = "POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{form.as_p}}
+			{{img.as_p}}
+			<input type ="submit" value = "Register">
+			<input type ="reset" value = "Cancel">	
+		</form>
+{% endblock %}
+
+{% block content_footer %}
+{% endblock %} 
+
+{% block pagination %}
+{% endblock %}
+
+{% block encabezado%}
+<h2><a href="#">Crear Evento</a></h2>
+<p>Crea tu evento!</p>
+{% endblock %} 
+
+{% block datos%}
+{% endblock %} 
+
+{% block imagen_principal %}
+{% endblock %} 
+{% block extrajs %}
+<script type="text/javascript">
+	$(document).ready(function(){
+        $("#id_Fecha").datepicker();
+    });
+</script>
+
+
+{% endblock %}

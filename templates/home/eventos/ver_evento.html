@@ -1,0 +1,104 @@
+{% extends 'simple.html' %} {% load staticfiles %} {% load coments %}
+
+{% block encabezado%}
+<h2><a href="/evento/{{evento.pk}}/">{{evento.Titulo}}</a></h2>
+      <p>{{evento.DescripcionC}}</p>
+{% endblock %}
+
+{% block datos%}
+<time class="published" datetime="2015-11-01">{{evento.Fecha}} - {{evento.Hora}}</time>
+<a href="#" class="author"><span class="name">{{evento.Autor}}</span></a>
+{% if evento.Autor.user == request.user %}
+<a href="/user/profile/miseventos/editar/{{evento.pk}}" class="author"><span class="name">Editar</span></a>
+{% elif tipo_usuario == 'Admin' %}
+<a href="/user/admin/editar/evento/{{evento.pk}}" class="author"><span class="name">Editar</span></a>
+{% if evento.Publicado %}
+      <a href="/user/admin/despublicar/evento/{{evento.pk}}" class="button mid">Des Publicar</a>
+      {% else %}
+      <a href="/user/admin/publicar/evento/{{evento.pk}}" class="button mid">Publicar</a>
+      {% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% block imagen_principal %}
+<span class="image featured"><img src="{{evento.Imagenes.first.Imagen.url}}" alt="" /></span>
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+
+{% if user.is_authenticated and tipo_usuario != 'Staff'%}
+<div id="like_placeholder"></div>
+<a class="fa fa-heart" id="like"></a>
+<a class="fa fa-star" id="guardar"></a>
+{% endif %}
+
+<p>{{evento.Titulo}}</p>
+
+<p>{{evento.DescripcionL}}</p>
+
+{% if user.is_authenticated and tipo_usuario != 'Staff'%}
+<form method="POST" id="comentario-form">
+  {% csrf_token %} {{ form.as_p }}
+  <button class="btn btn-default" type="submit">Comentar</button>
+</form>
+{% endif %}
+{% coments evento.pk %}
+
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}
+{%block content_footer%}
+      {% for cat in evento.Categorias.all %}
+      <li><a href="/eventos/categoria/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+
+      {% for cat in evento.Tipos.all %}
+      <li><a href="/eventos/tipo/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+{% endblock %}
+
+
+{% block extrajs %}
+<script src="{% static 'eventos/main.js' %}"></script>
+
+<script>
+  function ws_fav(pk) {
+  console.log("Like!") // sanity check
+  $.ajax({
+    url: "/wsevento/esperado/" + pk, // the endpoint
+    type: "POST", // http method
+    data: {
+    }, // data sent with the post request
+    success:function(json){
+        console.log(json);
+        if (json.result == 'Guardas'){
+            showalert("Guardas","alert-warning");
+        }
+        else{
+            showalert("Ya no esperas","alert-warning");
+        }
+    },
+    // handle a non-successful response
+    error: function(xhr, errmsg, err) {
+      $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+      console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+    }
+  })
+}
+
+$("#like").click( function()
+           {
+             ws_like({{evento.pk}})
+           }
+        );
+$("#guardar").click( function()
+           {
+             ws_fav({{evento.pk}})
+           }
+        );
+</script>
+{% endblock %}

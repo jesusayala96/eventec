@@ -1,0 +1,165 @@
+{% extends 'listas_sidebar.html' %}
+{% load list_eventos %}
+{% block titulo %}
+Index
+{% endblock %}
+
+<title>{{titulo}}</title>
+
+
+{% block marca %}
+<h1><a href="/">Eventec</a></h1>
+{% endblock %}
+
+{% block acciones_iconos %}
+<li class="menu">
+  <a class="fa-bars" href="#menu">Menu</a>
+</li>
+{% endblock %}
+{% block menu %}
+<li>
+  <a href="/eventos/tipo/">
+    <h3>Tipos</h3>
+    <p>Mira eventos por tipo</p>
+  </a>
+</li>
+<li>
+  <a href="/eventos/categoria/">
+    <h3>Categorias</h3>
+    <p>Mira eventos por categoria</p>
+  </a>
+</li>
+
+{% if tipo_usuario == 'Externo' or tipo_usuario == 'Interno' or tipo_usuario == 'Alumno' or tipo_usuario == 'Admin' %}
+<li>
+  <a href="/user/profile/">
+    <h3>Perfil</h3>
+    <p>Datos asociados a tu cuenta</p>
+  </a>
+</li>
+<li>
+  <a href="/user/crear_evento/">
+    <h3>Crear Evento</h3>
+    <p>Crea un nuevo evento</p>
+  </a>
+</li>
+{% endif %}
+{% if tipo_usuario == 'Admin' %}
+<li>
+  <a href="user/admin/">
+    <h3>Admin</h3>
+    <p>Panel de Administrador</p>
+  </a>
+</li>
+{% endif %}
+{% endblock %}
+{% block acciones %}
+{% if not user.is_authenticated %}
+<li><a href="/login" class="button big fit">Login</a></li>
+<li><a href="/sign" class="button big fit">Sign up</a></li>
+{% else %}
+<li><a href="/logout" class="button big fit">Logout</a></li>
+{% endif %}
+{% endblock %}
+
+{% block post %}
+{% if eventos %}
+{% for evento in eventos %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="/evento/{{evento.pk}}/">{{evento.Titulo}}</a></h2>
+      <p>{{evento.DescripcionC}}</p>
+    </div>
+    <div class="meta">
+      <time class="published" datetime="2015-11-01">{{evento.Fecha}} - {{evento.Hora}}</time>
+      <a href="#" class="author"><span class="name">{{evento.Autor}}</span></a>
+    </div>
+  </header>
+  <p>{{evento.DescripcionL}}</p>
+  <footer>
+    <ul class="actions">
+      <li><a href="/evento/{{evento.pk}}/" class="button big">Continue Reading</a></li>
+    </ul>
+    <ul class="stats">
+      {% for cat in evento.Categorias.all %}
+      <li><a href="/eventos/categoria/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+
+      {% for cat in evento.Tipos.all %}
+      <li><a href="/eventos/tipo/{{cat.pk}}/">{{cat}}</a></li>
+      {% endfor %}
+
+      <li><a class="icon fa-heart">{{evento.Likes.count}}</a></li>
+      <li><a class="icon fa-comment">{{evento.Comentarios.count}}</a></li>
+    </ul>
+  </footer>
+</article>
+{% endfor %}
+{% else %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="#">No hay eventos, consulta al administrador</a></h2>
+    </div>
+  </header>
+  <p>Vuelve a intentarlo con otros criterios</p>
+</article>
+{% endif %}
+
+{% endblock %}
+
+
+{% block pagination %}
+{% if eventos.has_other_pages %}
+  <ul class="pagination">
+    {% if eventos.has_previous %}
+      <li><a href="?page={{ eventos.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in eventos.paginator.page_range %}
+      {% if eventos.number == i %}
+        <li tweets="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if eventos.has_next %}
+      <li><a href="?page={{ eventos.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}
+
+{% block sideintro %}
+<header>
+  <h2>Eventec</h2>
+  <p>Gestion Eventos dentro del ITT</p>
+  <p>Control de Asistencia</p>
+</header>
+{% endblock %}
+{% block sidepost %}
+{% comentados %}
+{% endblock %}
+{% block sideminipost %}
+{% likeados %}
+{% endblock %}
+{% block footer %} <p>
+  Orange Team
+</p>
+<p>
+  Alvarado Soto Jesus Manuel #14211399
+</p>
+<p>
+  Ayala Sandoval Jesus Eduardo #14211403
+</p>
+<p>
+  Ilhuicatzi Campos Kassandra Citlalli #14211442
+</p>
+<p>
+
+</p>{% endblock %}
+{% block extrajs %} {% endblock %}

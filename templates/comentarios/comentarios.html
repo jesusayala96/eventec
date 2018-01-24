@@ -1,0 +1,18 @@
+{% load staticfiles %}
+
+{% if comentarios %}
+<ul>
+    {% for comentario in comentarios %}
+    <li><strong>{{comentario.Usuario}}</strong> : <em> {{comentario.Comentario}} </em> 
+        {% if comentario.Usuario.user == usr %}
+        <span> <a onclick=del_comentario({{comentario.pk}}) class='btn' href='.'> X </a> 
+        {% endif %}
+    </li>
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>Este evento aun no tiene comentarios</p>
+{% endif %}
+
+<script src="{% static 'comentarios/main.js' %}"></script>

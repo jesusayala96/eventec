@@ -1,0 +1,165 @@
+{% extends 'base_simple_sidebar.html' %} 
+
+{% block titulo %}
+Eventec
+{% endblock %}
+
+<title>{{titulo}}</title>
+
+
+{% block marca %}
+<h1><a href="/">Eventec</a></h1>
+{% endblock %} 
+
+{% block navbar %}
+<li><a href="/eventos/tipo/">Tipos</a></li>
+<li><a href="/eventos/categoria/">Categorias</a></li>
+
+{% if tipo_usuario == 'Externo' or tipo_usuario == 'Interno' or tipo_usuario == 'Alumno' or 'Admin' %}
+<li><a href="/user/profile/">Perfil</a></li>
+<li><a href="/user/crear_evento/">Crear Evento</a></li>
+
+{% endif %}
+{% if tipo_usuario == 'Admin' %}
+<li><a href="/user/admin">Admin</a></li>
+{% elif tipo_usuario == 'Staff' %}
+<li ><a href="/staff/eventos/">Eventos Disponibles</a></li>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<li><a href="/login">Login</a></li>
+<li><a href="/sign">Sign up</a></li>
+
+{% else %}
+<li><a href="/logout">Logout</a></li>
+{% endif %}
+
+{% endblock %} 
+
+{% block acciones_iconos %}
+<li class="menu">
+  <a class="fa-bars" href="#menu">Menu</a>
+</li>
+{% endblock %} 
+
+
+{% block menu %}
+<li>
+  <a href="/eventos/tipo/">
+    <h3>Tipos</h3>
+    <p>Mira eventos por tipo</p>
+  </a>
+</li>
+<li>
+  <a href="/eventos/categoria/">
+    <h3>Categorias</h3>
+    <p>Mira eventos por categoria</p>
+  </a>
+</li>
+
+{% if tipo_usuario == 'Externo' or tipo_usuario == 'Interno' or tipo_usuario == 'Alumno' or tipo_usuario == 'Admin' %}
+<li>
+  <a href="/user/profile/">
+    <h3>Perfil</h3>
+    <p>Datos asociados a tu cuenta</p>
+  </a>
+</li>
+<li>
+  <a href="/user/crear_evento/">
+    <h3>Crear Evento</h3>
+    <p>Crea un nuevo evento</p>
+  </a>
+</li>
+{% endif %}
+{% if tipo_usuario == 'Admin' %}
+<li>
+  <a href="/user/admin">
+    <h3>Admin</h3>
+    <p>Panel de Administrador</p>
+  </a>
+</li>
+
+{% elif tipo_usuario == 'Staff' %}
+<li>
+  <a href="/staff/eventos/">
+    <h3>Tomar Asitencia</h3>
+    <p>Eventos Disponibles</p>
+  </a>
+</li>
+{% endif %}
+
+{% endblock %} 
+
+{% block acciones %}
+{% if not user.is_authenticated %}
+<li><a href="/login" class="button big fit">Login</a></li>
+<li><a href="/sign" class="button big fit">Sign up</a></li>
+{% else %}
+<li><a href="/logout" class="button big fit">Logout</a></li>
+{% endif %}
+{% endblock %}
+{% block encabezado%}
+<h2><a href="#">Magna sed adipiscing</a></h2>
+<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
+{% endblock %} 
+
+{% block datos%}
+<time class="published" datetime="2015-11-01">November 1, 2015</time>
+<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a> 
+{% endblock %} 
+
+{% block imagen_principal %}
+<span class="image featured"><img src="images/pic01.jpg" alt="" /></span> 
+{% endblock %} 
+
+{% block content %}
+<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus
+  ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+<p>Nunc quis dui scelerisque, scelerisque urna ut, dapibus orci. Sed vitae condimentum lectus, ut imperdiet quam. Maecenas in justo ut nulla aliquam sodales vel at ligula. Sed blandit diam odio, sed fringilla lectus molestie sit amet. Praesent eu tortor
+  viverra lorem mattis pulvinar feugiat in turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ullamcorper tellus sit amet mattis dignissim. Phasellus ut metus ligula. Curabitur nec leo turpis. Ut
+  gravida purus quis erat pretium, sed pellentesque massa elementum. Fusce vestibulum porta augue, at mattis justo. Integer sed sapien fringilla, dapibus risus id, faucibus ante. Pellentesque mattis nunc sit amet tortor pellentesque, non placerat neque
+  viverra. </p>
+{% endblock %} 
+
+{% block content_footer %}
+<li><a href="#">General</a></li>
+<li><a href="#" class="icon fa-heart">28</a></li>
+<li><a href="#" class="icon fa-comment">128</a></li>
+{% endblock %} 
+
+{% block pagination %}
+<li><a href="" class="disabled button big previous">Previous Page</a></li>
+<li><a href="#" class="button big next">Next Page</a></li>
+{% endblock %}
+{% block sideintro %}
+<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
+<header>
+  <h2>Eventec</h2>
+  <p>Gestion Eventos dentro del ITT</p>
+  <p>Control de Asistencia</p>
+</header>
+{% endblock %} {% block sidepost %}
+<article class="mini-post">
+  <header>
+    <h3><a href="#">Vitae sed condimentum</a></h3>
+    <time class="published" datetime="2015-10-20">October 20, 2015</time>
+    <a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
+  </header>
+  <a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+</article>
+{% endblock %} {% block sideminipost %}
+<li>
+  <article>
+    <header>
+      <h3><a href="#">Lorem ipsum fermentum ut nisl vitae</a></h3>
+      <time class="published" datetime="2015-10-20">October 20, 2015</time>
+    </header>
+    <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+  </article>
+</li>
+{% endblock %} 
+{% block footer %} 
+{% endblock %} 
+
+{% block extrajs %} 
+{% endblock %}

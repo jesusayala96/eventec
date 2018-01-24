@@ -1,0 +1,16 @@
+{% if ultimos_eventos %}
+{% for evento in ultimos_eventos %}
+  <article>
+    <header>
+      <h3><a href="/evento/{{evento.pk}}/">{{evento.Titulo}}</a></h3>
+      <p href="/evento/{{evento.pk}}/">{{evento.DescripcionC}}</p>
+    </header>
+  </article>
+{% endfor %}
+{% else %}
+  <article>
+    <header>
+      <h3><a href="#">Sin eventos disponibles</a></h3>
+    </header>
+  </article>
+{% endif %}

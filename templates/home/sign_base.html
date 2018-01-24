@@ -1,0 +1,54 @@
+{% extends 'listas.html' %} 
+
+{% block titulo %} Registrarse {% endblock %}
+
+{% block post %}
+{% if user.is_authenticated %}
+<div id="fh5co-portfolio">
+  <div class="fh5co-portfolio-item ">
+    <div class="fh5co-portfolio-description">
+      <h2>Logueado con exito</h2>
+      <p>Estas actualmente logueado</p>
+    </div>
+  </div>
+</div>
+{% else %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="/signup-alumno/">Alumno</a></h2>
+      <p>Registro como alumno</p>
+    </div>
+  </header>
+  <footer>
+    <ul class="actions">
+      <li><a href="/signup-alumno/" class="button big">Registro</a></li>
+    </ul>
+  </footer>
+</article>
+
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="/signup-exteno/">Externo</a></h2>
+      <p>No eres estudiante de ITT? Registrate!</p>
+    </div>
+  </header>
+  <footer>
+    <ul class="actions">
+      <li><a href="/signup-externo/" class="button big">Registro</a></li>
+    </ul>
+  </footer>
+</article>
+{% endif %}
+{% endblock %}
+
+
+{% block pagination %}
+{% endblock %}
+
+{% block footer %} 
+{% endblock %} 
+
+{% block extrajs %} 
+{% endblock %}

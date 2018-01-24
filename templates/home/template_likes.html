@@ -1,0 +1,21 @@
+{% if ultimos_eventos %}
+{% for evento in ultimos_eventos %}
+<li>
+<article class="mini-post">
+  <header>
+     <h3><a href="/evento/{{evento.pk}}/">{{evento.Titulo}}</a></h3>
+    <time class="published" datetime="2015-10-20">{{evento.Fecha}} - {{evento.Hora}}</time>
+    <a href="{{evento.Imagenes.first.Imagen.url}}" class="image"><img src="{{evento.Imagenes.first.Imagen.url}}" alt="" /></a>
+  </header>
+</article>
+</li>
+{% endfor %}
+{% else %}
+<li>
+  <article>
+    <header>
+      <h3><a href="#">Sin eventos disponibles</a></h3>
+    </header>
+  </article>
+</li>
+{% endif %}

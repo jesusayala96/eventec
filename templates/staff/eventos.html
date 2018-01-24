@@ -1,0 +1,31 @@
+{% extends 'staff/base.html' %} 
+
+{% block titulo %}
+{% endblock %}
+
+{% block encabezado %}
+<h2><a href="#">Eventos Disponibles!</a></h2>
+<p>Toma asistencia!</p>
+{% endblock %}
+
+{% block datos%}
+
+{% endblock %} 
+
+{% block content%} 
+    {% if object_list %}
+    <ul>
+      {% for publicacion in object_list %}
+      <li>
+        <a href="{{ publicacion.pk }}">{{ publicacion.Evento.Titulo }}</a> ({{publicacion.Evento.Autor.get_Tipo_display}}, {{publicacion.Evento.Fecha}}  - {{evento.Hora}}  Visitantes al momento {{publicacion.Asistentes.count}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay publicaciones disponibles.</p>
+    {% endif %}       
+{% endblock %}
+
+{% block extrajs %}    
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'listas.html' %}
+
+{% block post %}
+{% if tipos %}
+{% for tipo in tipos %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="/eventos/tipo/{{tipo.pk}}">{{tipo.Tipo}}</a></h2>
+    </div>
+  </header>
+  <footer>
+    <ul class="actions">
+      <li><a href="/eventos/tipo/{{tipo.pk}}/" class="button big">Ver Eventos</a></li>
+    </ul>
+  </footer>
+</article>
+{% endfor %}
+{% else %}
+<article class="post">
+  <header>
+    <div class="title">
+      <h2><a href="#">No hay tipos, consulta al administrador</a></h2>
+    </div>
+  </header>
+  <p>Vuelve a intentarlo con otros criterios</p>
+</article>
+{% endif %}
+{% endblock %}
+
+
+{% block pagination %}
+{% endblock %}
+
+{% block footer %} 
+{% endblock %} 
+
+{% block extrajs %} 
+{% endblock %}

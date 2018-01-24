@@ -1,0 +1,43 @@
+{% extends 'staff/base.html' %} {% block titulo %} {% endblock %} 
+{% load staticfiles %}
+{% block navbar %} {% if user.is_authenticated %}
+<li ><a href="/staff/eventos/"><span>Eventos Disponibles<span class="border"></span></span></a></li>
+<li ><a href="/logout"><span>Salir<span class="border"></span></span></a></li>
+{% endif %} {% endblock %} 
+
+{% block encabezado %}
+<h2><a href="#">Toma Asistencia</a></h2>
+<p>Ingresa datos de asistentes</p>
+{% endblock %} 
+
+
+{% block content%}
+<div id = "alert_placeholder"></div>
+
+<form method="POST" id="asistencia-form" >
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button class="btn btn-default" type="submit">Registrar</button>
+</form>
+<div id="talk_div">
+<ul id="talk">
+ 
+</u>
+</div>
+     
+
+{% endblock %} 
+
+{% block extrajs %} 
+<script src="{% static 'staff/main.js' %}"></script>
+<script>
+  $('#asistencia-form').on('submit', function(event){
+    event.preventDefault();
+    console.log("form submitted!")  // sanity check
+    create_post({{pk}});
+    
+}); 
+    $('document').ready(function(){show_asistentes({{pk}})});
+ </script>
+  
+{% endblock %}
